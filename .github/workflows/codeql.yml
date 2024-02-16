@@ -1,0 +1,91 @@
+#include <iostream>
+#include <cstdlib> // For exit()
+using namespace std;
+
+class bank{
+    char name[100], add[100], y;
+    int balance;
+public:
+    void open_account();
+    void deposit_money();
+    void withdraw_money();
+    void display_account();
+};
+
+void bank::open_account(){
+    cout << "Enter your full name: ";
+    cin.ignore(); // Ignore the newline character left by the last input
+    cin.getline(name, 100);
+    cout << "Enter your address: ";
+    //cin.ignore(); // This is not needed here again as getline consumes the newline character
+    cin.getline(add, 100);
+    cout << "What type of account you want to open saving (s) or current (c): ";
+    cin >> y;
+    cout << "Enter amount for deposit: ";
+    cin >> balance;
+    cout << "Your account is created.\n";
+}
+
+void bank::deposit_money(){
+    int a;
+    cout << "Enter how much you deposit: ";
+    cin >> a;
+    balance += a;
+    cout << "Total amount you deposit: " << balance << endl;	
+}
+
+void bank::withdraw_money(){
+    float amount;
+    cout << "Enter amount to withdraw: ";
+    cin >> amount;
+    if(amount <= balance) {
+        balance -= amount;
+        cout << "Now total amount left is: " << balance << endl;
+    } else {
+        cout << "Insufficient balance" << endl;
+    }
+}
+
+void bank::display_account(){
+    cout << "Your full name: " << name << endl;
+    cout << "Your address: " << add << endl;
+    cout << "Type of account that you open: " << y << endl;
+    cout << "Amount you deposit: " << balance << endl;
+}
+
+int main() {
+    int ch;
+    char x;
+    bank obj;
+    do{
+        cout << "1) Open Account\n";
+        cout << "2) Deposit Money\n";
+        cout << "3) Withdraw Money\n";
+        cout << "4) Display Account\n";
+        cout << "5) Exit\n";
+        cout << "Select the option from above: ";
+        cin >> ch;
+        switch(ch){
+            case 1:
+                obj.open_account();
+                break;
+            case 2:
+                obj.deposit_money();
+                break;
+            case 3:
+                obj.withdraw_money();
+                break;
+            case 4:
+                obj.display_account();
+                break;
+            case 5:
+                exit(0);
+            default:
+                cout << "This does not exist, try again.\n";
+        }
+        cout << "\nDo you want to select next option? Then press y\n";
+        cout << "If you want to exit, then press n: ";
+        cin >> x;
+    } while(x == 'y' || x == 'Y');
+    return 0;
+}
